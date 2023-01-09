@@ -41,4 +41,10 @@ const continuePrompt = async () => {
     })
 }
 
-const url = `https://pokeapi.co/api/v2/pokemon/`
+const fetchPokemon = async (pokemon) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+    const response = await fetch(url)
+    const json = await response.json()
+    return json
+}
+
