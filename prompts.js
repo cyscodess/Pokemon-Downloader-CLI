@@ -51,6 +51,7 @@ const fetchPokemon = async (pokemon) => {
 const promptUser = async () => {
     while (true) {
         const pokemon = await getPokemonInput()
+        const pokemonJson = await fetchPokemon(pokemon.pokemon_name)
         const options = await getDownloadInfo()
         const keepGoing = await continuePrompt()
         if (keepGoing.continue === "No") break
