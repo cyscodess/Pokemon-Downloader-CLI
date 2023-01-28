@@ -35,3 +35,24 @@ const savePokemonArtwork = async(folderName, pokemonSpritesObject) => {
     const filePath = path.join(process.cwd(), folderName, "artwork.png")
     await saveImageFile(filePath, arrayBuffer)
 }
+
+const savePokemonSprites = async(folderName, pokemonSpritesObject) => {
+    let spritePromises = []
+    let spriteNames = []
+
+    for (const [name, url] of Object.entries(pokemonSpritesObject)) {
+        if (!url) continue
+        if (name === "other" || name === "versions") continue
+
+    spritePromises.push(fetch(url).then((res) => res.arrayBuffer()))
+    spriteNames.push(name)
+    }
+
+    spritePromises = await Promise.all(spritePromises)
+    await createFolder(folderName)
+    for (let i = 0; i < spritePromises.length; i++) {
+        const filePath = path.join(process.cwd(), folderName, `${spriteNames[i]}.png`)
+        await saveImageFile(filePath, spritePromises[i])
+    }
+
+}
