@@ -18,15 +18,9 @@ const getDownloadInfo = async () => {
         name: "options",
         choices: [
             new inquirer.Separator(" *** Choices *** "),
-            {
-                name: "Stats"
-            },
-            {
-                name: "Sprites"
-            },
-            {
-                name: "Artwork"
-            }
+            { name: "Stats" },
+            { name: "Sprites" },
+            { name: "Artwork" }
         ]
     })
 }
