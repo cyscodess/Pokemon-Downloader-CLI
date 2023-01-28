@@ -20,3 +20,4 @@ const savePokemonStats = async(folderName, pokemonStatsObject) => {
     const filePath = path.join(process.cwd(), folderName, "stats.txt")
     await fs.writeFile(filePath, statsString)
 }
+
