@@ -56,3 +56,22 @@ const savePokemonSprites = async(folderName, pokemonSpritesObject) => {
     }
 
 }
+
+const parseOptions = async(pokemonObject, optionsObject) => {
+    const options = optionsObject.options
+    const pokemonName = pokemonObject.name
+
+    if (options.includes("Stats")) {
+        await savePokemonStats(pokemonName, pokemonObject.stats)
+    }
+
+    if (options.includes("Sprites")) {
+        await savePokemonSprites(pokemonName, pokemonObject.sprites)
+    }
+
+    if (options.includes("Artwork")) {
+        await savePokemonArtwork(pokemonName, pokemonObject.sprites)
+    }
+}
+
+export {parseOptions}

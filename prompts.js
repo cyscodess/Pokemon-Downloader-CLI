@@ -1,5 +1,6 @@
 import fetch from "node-fetch"
 import inquirer from "inquirer"
+import { parseOptions } from "./save.js"
 
 // Question to get Pokemon
 const getPokemonInput = async () => {
@@ -47,9 +48,10 @@ const promptUser = async () => {
         const pokemon = await getPokemonInput()
         const pokemonJson = await fetchPokemon(pokemon.pokemon_name)
         const options = await getDownloadInfo()
+        await parseOptions(pokemonJson, options)
         const keepGoing = await continuePrompt()
         if (keepGoing.continue === "No") break
     }
 }
 
-promptUser()
+export {promptUser}
