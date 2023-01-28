@@ -1,5 +1,10 @@
 import fs from "fs/promises"
 import path from "path"
+import fetch from "node-fetch"
+
+const saveImageFile = async(filePath, arrayBuffer) => {
+    await fs.writeFile(filePath, Buffer.from(arrayBuffer))
+}
 
 const createFolder = async(folderName) => {
     const makeFolderName = path.join(process.cwd(), folderName)
@@ -21,3 +26,12 @@ const savePokemonStats = async(folderName, pokemonStatsObject) => {
     await fs.writeFile(filePath, statsString)
 }
 
+const savePokemonArtwork = async(folderName, pokemonSpritesObject) => {
+    const url = pokemonSpritesObject.other["official-artwork"].front_default
+    const response = await fetch(url)
+    const arrayBuffer = await response.arrayBuffer()
+    
+    await createFolder(folderName)
+    const filePath = path.join(process.cwd(), folderName, "artwork.png")
+    await saveImageFile(filePath, arrayBuffer)
+}
